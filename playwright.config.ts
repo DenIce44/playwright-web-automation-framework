@@ -12,7 +12,7 @@ export default defineConfig({
     ? [['line'], ['html', { open: 'never' }], ['junit', { outputFile: 'test-results/junit.xml' }]]
     : [['list'], ['html', { open: 'never' }]],
   use: {
-    baseURL: process.env.BASE_URL ?? 'https://demo.playwright.dev/todomvc',
+    baseURL: process.env.BASE_URL ?? 'https://demo.playwright.dev/todomvc/',
     actionTimeout: 10_000,
     navigationTimeout: 15_000,
     trace: 'on-first-retry',

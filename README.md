@@ -65,7 +65,7 @@ npm run report          # open the latest HTML report
 The defaults run without secrets. Override targets through environment variables when needed:
 
 ```bash
-BASE_URL=https://demo.playwright.dev/todomvc \
+BASE_URL=https://demo.playwright.dev/todomvc/ \
 API_BASE_URL=https://jsonplaceholder.typicode.com \
 npm test
 ```
