@@ -15,7 +15,7 @@ export class TodoPage {
 
   async open(): Promise<void> {
     await this.page.goto('./');
-    await expect(this.page).toHaveURL(/\/todomvc\/?$/);
+    await expect(this.page).toHaveURL(/\/todomvc\/?(?:#\/?)?$/);
     await expect(this.newTodo).toBeVisible();
   }
 
