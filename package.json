@@ -8,13 +8,17 @@
     "test:ui": "playwright test --ui",
     "test:smoke": "playwright test --grep @smoke",
     "test:api": "playwright test tests/api",
+    "test:reelly": "playwright test tests/ui/reelly-authentication.spec.ts --project=chromium",
     "test:chromium": "playwright test --project=chromium",
+    "typecheck": "tsc --noEmit",
     "report": "playwright show-report"
   },
   "keywords": ["playwright", "typescript", "test-automation", "qa", "e2e-testing", "api-testing"],
   "author": "Denys Ishchuk",
   "license": "MIT",
   "devDependencies": {
-    "@playwright/test": "^1.45.0"
+    "@playwright/test": "^1.62.1",
+    "@types/node": "^22.20.1",
+    "typescript": "^7.0.2"
   }
 }

@@ -8,6 +8,7 @@ A portfolio project by **Denys Ishchuk** demonstrating maintainable UI and API a
 
 - Page Object Model with responsibility-focused methods
 - Positive, negative, and state-transition UI scenarios
+- Passwordless authentication coverage against a real product login flow
 - API status, header, and response-body validation
 - Data separated from test behavior
 - Smoke tagging for fast feedback
@@ -21,6 +22,7 @@ A portfolio project by **Denys Ishchuk** demonstrating maintainable UI and API a
 ## Test targets
 
 - UI: [Playwright TodoMVC demo](https://demo.playwright.dev/todomvc)
+- Authentication: [Reelly AI](https://find.reelly.io/auth/login)
 - API: [JSONPlaceholder](https://jsonplaceholder.typicode.com)
 
 These public demo services keep the project reproducible and free of employer code or confidential data.
@@ -55,8 +57,10 @@ Useful commands:
 ```bash
 npm run test:smoke      # fastest critical-path signal
 npm run test:api        # API suite only
+npm run test:reelly     # Reelly AI sign-in coverage on Chromium
 npm run test:chromium   # one browser
 npm run test:ui         # interactive Playwright UI
+npm run typecheck       # validate TypeScript without emitting files
 npm run report          # open the latest HTML report
 ```
 
@@ -71,6 +75,18 @@ npm test
 ```
 
 See [.env.example](.env.example) for supported values. Never commit credentials or environment-specific secrets.
+
+### Reelly AI sign-in suite
+
+The Reelly flow is passwordless: a registered user enters an email address and receives a six-digit one-time code. The default suite safely checks the public login contract, required-field behavior, invalid email validation, and recovery/registration paths without sending email or storing account data.
+
+The live code-request scenario is deliberately opt-in. Run it with a registered test account:
+
+```bash
+REELLY_EMAIL=qa-account@example.com npm run test:reelly
+```
+
+The test confirms that Reelly advances to the one-time-code step. End-to-end OTP submission is excluded until the framework has a controlled mailbox/API fixture; this avoids committing secrets, depending on a human-readable inbox, or repeatedly messaging real users in CI.
 
 ## Quality decisions
 
