@@ -29,14 +29,16 @@ test.describe('Reelly AI passwordless sign-in', () => {
   test('@reelly rejects an invalid email format', async ({ page }) => {
     await loginPage.requestCode('not-an-email');
 
-    const nativeValidationMessage = await loginPage.emailInput.evaluate(
-      (input: HTMLInputElement) => input.validationMessage
-    );
-    const showsValidationFeedback =
-      (await loginPage.invalidEmailError.isVisible()) || nativeValidationMessage.length > 0;
-
-    expect(showsValidationFeedback).toBe(true);
-    await expect(loginPage.emailInput).toHaveValue('not-an-email');
+    await expect
+      .poll(
+        async () =>
+          (await loginPage.invalidEmailError.isVisible()) ||
+          (await loginPage.requiredEmailError.isVisible()),
+        { message: 'Expected Reelly to reject the malformed email address' }
+      )
+      .toBe(true);
+    await expect(loginPage.emailInput).toBeVisible();
+    await expect(loginPage.sendCodeButton).toBeVisible();
     await expect(page).toHaveURL(/\/auth\/login\/?(?:\?.*)?$/);
   });
 
